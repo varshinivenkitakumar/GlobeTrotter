@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GlobalTrotters - Travel Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="screen active" id="loginScreen">
+    <h2>Login</h2>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- Dashboard -->
+<div class="screen" id="dashboard">
+    <h2>Dashboard</h2>
+    <button onclick="showScreen('createTrip')">Plan New Trip</button>
+    <button onclick="showScreen('myTrips')">My Trips</button>
+    <button onclick="showScreen('budget')">Budget</button>
+    <button onclick="showScreen('profile')">Profile</button>
+</div>
+
+<!-- Create Trip -->
+<div class="screen" id="createTrip">
+    <h2>Create Trip</h2>
+    <input id="tripName" placeholder="Trip Name">
+    <input id="city" placeholder="City">
+    <input id="budgetInput" type="number" placeholder="Budget">
+    <button onclick="addTrip()">Save Trip</button>
+    <button onclick="showScreen('dashboard')">Back</button>
+</div>
+
+<!-- My Trips -->
+<div class="screen" id="myTrips">
+    <h2>My Trips</h2>
+    <ul id="tripList"></ul>
+    <button onclick="showScreen('dashboard')">Back</button>
+</div>
+
+<!-- Budget Screen -->
+<div class="screen" id="budget">
+    <h2>Trip Budget</h2>
+    <div id="budgetList"></div>
+    <button onclick="showScreen('dashboard')">Back</button>
+</div>
+
+<!-- Profile -->
+<div class="screen" id="profile">
+    <h2>User Profile</h2>
+    <p>Name: Varshini</p>
+    <p>Email: user@email.com</p>
+    <button onclick="showScreen('dashboard')">Back</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
