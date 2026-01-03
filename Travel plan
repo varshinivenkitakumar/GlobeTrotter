@@ -1,0 +1,198 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_TRIPS 5
+
+// Structure for User
+struct User {
+    char name[50];
+    char email[50];
+    char password[20];
+};
+
+// Structure for Trip
+struct Trip {
+    char tripName[50];
+    char startDate[15];
+    char endDate[15];
+    char city[50];
+    int budget;
+};
+
+struct User user;
+struct Trip trips[MAX_TRIPS];
+int tripCount = 0;
+
+// Function declarations
+void signup();
+int login();
+void dashboard();
+void createTrip();
+void viewTrips();
+void itineraryView();
+void budgetView();
+void userProfile();
+
+int main() {
+    int choice;
+
+    while (1) {
+        printf("\n==== Travel Planning Application ====\n");
+        printf("1. Signup\n");
+        printf("2. Login\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                signup();
+                break;
+            case 2:
+                if (login())
+                    dashboard();
+                break;
+            case 3:
+                printf("Thank you for using the application!\n");
+                return 0;
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
+
+// Signup
+void signup() {
+    printf("\n--- Signup ---\n");
+    printf("Enter Name: ");
+    scanf(" %[^\n]", user.name);
+    printf("Enter Email: ");
+    scanf("%s", user.email);
+    printf("Enter Password: ");
+    scanf("%s", user.password);
+    printf("Signup successful!\n");
+}
+
+// Login
+int login() {
+    char email[50], pass[20];
+    printf("\n--- Login ---\n");
+    printf("Email: ");
+    scanf("%s", email);
+    printf("Password: ");
+    scanf("%s", pass);
+
+    if (strcmp(email, user.email) == 0 && strcmp(pass, user.password) == 0) {
+        printf("Login successful!\n");
+        return 1;
+    } else {
+        printf("Invalid credentials!\n");
+        return 0;
+    }
+}
+
+// Dashboard
+void dashboard() {
+    int choice;
+    while (1) {
+        printf("\n==== Dashboard ====\n");
+        printf("1. Create Trip\n");
+        printf("2. My Trips\n");
+        printf("3. Itinerary View\n");
+        printf("4. Budget View\n");
+        printf("5. User Profile\n");
+        printf("6. Logout\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                createTrip();
+                break;
+            case 2:
+                viewTrips();
+                break;
+            case 3:
+                itineraryView();
+                break;
+            case 4:
+                budgetView();
+                break;
+            case 5:
+                userProfile();
+                break;
+            case 6:
+                return;
+            default:
+                printf("Invalid option!\n");
+        }
+    }
+}
+
+// Create Trip
+void createTrip() {
+    if (tripCount >= MAX_TRIPS) {
+        printf("Trip limit reached!\n");
+        return;
+    }
+
+    printf("\n--- Create Trip ---\n");
+    printf("Trip Name: ");
+    scanf(" %[^\n]", trips[tripCount].tripName);
+    printf("Start Date: ");
+    scanf("%s", trips[tripCount].startDate);
+    printf("End Date: ");
+    scanf("%s", trips[tripCount].endDate);
+    printf("City: ");
+    scanf("%s", trips[tripCount].city);
+    printf("Budget: ");
+    scanf("%d", &trips[tripCount].budget);
+
+    tripCount++;
+    printf("Trip created successfully!\n");
+}
+
+// View Trips
+void viewTrips() {
+    printf("\n--- My Trips ---\n");
+    if (tripCount == 0) {
+        printf("No trips available.\n");
+        return;
+    }
+
+    for (int i = 0; i < tripCount; i++) {
+        printf("\nTrip %d\n", i + 1);
+        printf("Name: %s\n", trips[i].tripName);
+        printf("Dates: %s to %s\n", trips[i].startDate, trips[i].endDate);
+        printf("City: %s\n", trips[i].city);
+    }
+}
+
+// Itinerary View
+void itineraryView() {
+    printf("\n--- Itinerary View ---\n");
+    for (int i = 0; i < tripCount; i++) {
+        printf("Trip: %s | City: %s | Dates: %s - %s\n",
+               trips[i].tripName,
+               trips[i].city,
+               trips[i].startDate,
+               trips[i].endDate);
+    }
+}
+
+// Budget View
+void budgetView() {
+    printf("\n--- Budget Breakdown ---\n");
+    for (int i = 0; i < tripCount; i++) {
+        printf("Trip: %s | Estimated Budget: Rs.%d\n",
+               trips[i].tripName,
+               trips[i].budget);
+    }
+}
+
+// User Profile
+void userProfile() {
+    printf("\n--- User Profile ---\n");
+    printf("Name: %s\n", user.name);
+    printf("Email: %s\n", user.email);
+}
